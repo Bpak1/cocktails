@@ -6,7 +6,9 @@ import axios from 'axios';
 
 const Detail = () => {
   let location = useLocation();
-  const detailID =  location.pathname.replace(/\\|\//g,'');
+  const detailID = location.pathname.replace(/\\|\//g,'').slice(8);
+
+  console.log("detailID " + detailID);
   const [ result, setResult] = useState([]);
 
   useEffect(() => {
@@ -30,55 +32,173 @@ const Detail = () => {
     detail();
   }, [detailID]);
 
-  const renderResults = result.map((result) => {
-   return (
-     <div className="ui two column relaxed grid" style={{marginTop:"30px"}} key={result.idDrink}>
-      <div className="column">
-      <h3 className="header">{result.strDrink}</h3>
-        <div  >
-             <img src={result.strDrinkThumb} alt={result.strDrink} width="250"/>
-         </div>
-         <p style={{marginTop:"10px"}}>{result.strInstructions}</p>
-        </div>
+  if(!result){
+    return (
+      <div className="ui two column relaxed grid" style={{marginTop:"30px"}}>
         <div className="column">
-        <table className="ui basic right aligned table">
-         <thead>
-           <tr>
-             <th className="left aligned">Ingredients</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-             <td className="left aligned">{result.strIngredient1}</td>
-         </tr>
-            <tr>
-              <td className="left aligned">{result.strIngredient2}</td>
-            </tr>
-            <tr>
-              <td className="left aligned">{result.strIngredient3}</td>
-
-            </tr>
-            <tr>
-              <td className="left aligned">{result.strIngredient4}</td>
-            </tr>
-          </tbody>
-        </table>
+          <h3>No result</h3>
+          <p>Please make sure you enter a right drink id.</p>
+          <Link to="/" className="ui button" style={{marginTop:"40px"}}>Back to overview</Link>
         </div>
-    </div>
-   );
- });
+      </div>
+    );
+  }else{
+    const renderResults = result.map((result) => {
+     return (
+       <div className="ui two column relaxed grid" style={{marginTop:"30px"}} key={result.idDrink}>
+        <div className="column">
+        <h3 className="header">{result.strDrink}</h3>
+          <div>
+               <img src={result.strDrinkThumb} alt={result.strDrink} width="250"/>
+           </div>
+           <p style={{marginTop:"10px"}}>{result.strInstructions}</p>
+          </div>
+          <div className="column">
+          <table className="ui basic right aligned table">
+           <thead>
+             <tr>
+               <th className="left aligned">Ingredients</th>
+               <th className="left aligned">Measurements</th>
 
-  return (
-    <div>
-      {renderResults}
-      <Link to="/" className="ui button" style={{marginTop:"20px"}}>Back to overview</Link>
-    </div>
-  );
+            </tr>
+          </thead>
+          <tbody>
+              { !!result.strIngredient1 &&
+                <tr>
+                  <td className="left aligned">{result.strIngredient1}</td>
+                  { !!result.strMeasure1 &&
+                    <td className="left aligned">{result.strMeasure1} </td>
+                  }
+                </tr>
+              }
+              { !!result.strIngredient2 &&
+                <tr>
+                  <td className="left aligned">{result.strIngredient2}</td>
+                  { !!result.strMeasure2 &&
+                    <td className="left aligned">{result.strMeasure2} </td>
+                  }
+                </tr>
+              }
+              { !!result.strIngredient3 &&
+                <tr>
+                  <td className="left aligned">{result.strIngredient3}</td>
+                  { !!result.strMeasure3 &&
+                    <td className="left aligned">{result.strMeasure3} </td>
+                  }
+                </tr>
+              }
+              { !!result.strIngredient4 &&
+                <tr>
+                  <td className="left aligned">{result.strIngredient4}</td>
+                  { !!result.strMeasure4 &&
+                    <td className="left aligned">{result.strMeasure4} </td>
+                  }
+                </tr>
+              }
+              { !!result.strIngredient5 &&
+                <tr>
+                  <td className="left aligned">{result.strIngredient5}</td>
+                  { !!result.strMeasure5 &&
+                    <td className="left aligned">{result.strMeasure5} </td>
+                  }
+                </tr>
+              }
+              { !!result.strIngredient6 &&
+                <tr>
+                  <td className="left aligned">{result.strIngredient6}</td>
+                  { !!result.strMeasure6 &&
+                    <td className="left aligned">{result.strMeasure6} </td>
+                  }
+                </tr>
+              }
+              { !!result.strIngredient7 &&
+                <tr>
+                  <td className="left aligned">{result.strIngredient7}</td>
+                  { !!result.strMeasure7 &&
+                    <td className="left aligned">{result.strMeasure7} </td>
+                  }
+                </tr>
+              }
+              { !!result.strIngredient8 &&
+                <tr>
+                  <td className="left aligned">{result.strIngredient8}</td>
+                  { !!result.strMeasure8 &&
+                    <td className="left aligned">{result.strMeasure8} </td>
+                  }
+                </tr>
+              }
+              { !!result.strIngredient9 &&
+                <tr>
+                  <td className="left aligned">{result.strIngredient9}</td>
+                  { !!result.strMeasure9 &&
+                    <td className="left aligned">{result.strMeasure9} </td>
+                  }
+                </tr>
+              }
+              { !!result.strIngredient10 &&
+                <tr>
+                  <td className="left aligned">{result.strIngredient10}</td>
+                  { !!result.strMeasure10 &&
+                    <td className="left aligned">{result.strMeasure10} </td>
+                  }
+                </tr>
+              }
+              { !!result.strIngredient11 &&
+                <tr>
+                  <td className="left aligned">{result.strIngredient11}</td>
+                  { !!result.strMeasure11 &&
+                    <td className="left aligned">{result.strMeasure11} </td>
+                  }
+                </tr>
+              }
+              { !!result.strIngredient12 &&
+                <tr>
+                  <td className="left aligned">{result.strIngredient12}</td>
+                  { !!result.strMeasure12 &&
+                    <td className="left aligned">{result.strMeasure12} </td>
+                  }
+                </tr>
+              }
+              { !!result.strIngredient13 &&
+                <tr>
+                  <td className="left aligned">{result.strIngredient13}</td>
+                  { !!result.strMeasure13 &&
+                    <td className="left aligned">{result.strMeasure13} </td>
+                  }
+                </tr>
+              }
+              { !!result.strIngredient14 &&
+                <tr>
+                  <td className="left aligned">{result.strIngredient14}</td>
+                  { !!result.strMeasure14 &&
+                    <td className="left aligned">{result.strMeasure14} </td>
+                  }
+                </tr>
+              }
+              { !!result.strIngredient15 &&
+                <tr>
+                  <td className="left aligned">{result.strIngredient15}</td>
+                  { !!result.strMeasure15 &&
+                    <td className="left aligned">{result.strMeasure15} </td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+          </div>
+      </div>
+     );
+   });
 
+    return (
+      <div style={{marginBottom:"20px"}}>
+        {renderResults}
+        <Link to="/" className="ui button" style={{marginTop:"20px"}}>Back to overview</Link>
+      </div>
+    );
+  }
 };
 
-
 export default Detail;
-
 
 //volgende verdiepingspagina is linken naar https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007

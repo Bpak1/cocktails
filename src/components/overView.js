@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const OverView = () => {
-  const terms = ["Gin", "Vodka", "Whiskey"];
+  const terms = ["Gin", "Vodka", "Whiskey"
+];
   const [ term, setTerm ] = useState('Gin');
   const [ debouncedTerm, setDebouncedTerm ] = useState(term);
   const [ results, setResults] = useState([]);
@@ -38,41 +39,51 @@ const OverView = () => {
     search();
   }, [debouncedTerm]);
 
-   const renderResults = results.map((result, key) => {
-    return (
-      <div key={result.idDrink} className="ui stackable four wide column" style={{marginBottom:"20px"}}>
-        <a href={result.idDrink}>
-          <div className="card">
-            <img src={result.strDrinkThumb} width="250" alt={result.strDrink}/>
-            <div className="header">{result.strDrink}</div>
+  const menu = <div className="row">
+      <div className="ui top attached tabular menu">
+        {terms.map((t) => (
+          <div
+            className={["item", term === t ? "active" : null].filter(Boolean).join(" ")} //filter boolean is om de andere waarden op 0 te zetten
+            onClick={(e) => setTerm(t)}
+            key={t}
+          >
+            {t}
           </div>
-        </a>
-        </div>
+        ))}
+      </div>
+    </div>;
+
+  if(!results){
+    return (
+      <div className="ui stackable four column grid" style={{marginTop:"30px"}}>
+        {menu}
+        No results to show
+      </div>
     );
-  });
+  }else{
+   const renderResults = results.map((result, key) => {
+      return (
+        <div key={result.idDrink} className="column" style={{marginBottom:"20px"}}>
+          <a href={`cocktail/${result.idDrink}`}>
+            <div className="card">
+              <img src={result.strDrinkThumb} width="200" alt={result.strDrink}/>
+              <div className="header">{result.strDrink}</div>
+            </div>
+          </a>
+        </div>
+      );
+    });
 
   return (
-    <div className="ui stackable grid" style={{marginTop:"30px"}}>
-      <div className="row">
-          <h3>Select a drink to get started</h3>
-          <div className="ui top attached tabular menu">
-            {terms.map((t) => (
-              <div
-                className={["item", term === t ? "active" : null].filter(Boolean).join(" ")} //filter boolean is om de andere waarden op 0 te zetten
-                onClick={(e) => setTerm(t)}
-                key={t}
-              >
-                {t}
-              </div>
-            ))}
-          </div>
+      <div className="ui stackable four column grid" style={{marginTop:"30px"}}>
+        { menu }
+        <div className="row">
+          {  renderResults }
         </div>
-      <div className="row">
-          {renderResults}
       </div>
-    </div>
   );
 };
+}
 
 export default OverView;
 

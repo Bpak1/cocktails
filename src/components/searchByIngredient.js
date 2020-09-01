@@ -4,25 +4,32 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const SearchBar = () => {
+const SearchByIngredient = () => {
 
   const [ searchTerm, setSearchTerm] = useState('Gin');
   const [ debouncedSearchTerm, setDebouncedSearchTerm ] = useState(searchTerm);
   const [ results, setResults] = useState([]);
+  let { term } = useParams();
 
+  if(term==''){
+    let useSearchTerm = 'Lime';
+  }else{
+    let useSearchTerm = searchTerm;
+  }
 
+  console.log("Search " + term);
   //searchTerm hier of op term of op de default gin zetten, kijken of dit kan met useState
   //wellicht overschijrven met setState of een andere hook
 
   useEffect(() =>{
     const timerId = setTimeout(() => {
-      setDebouncedSearchTerm(searchTerm);
+      setDebouncedSearchTerm(term, searchTerm);
     }, 1000);
 
     return () => {
       clearTimeout(timerId);
     };
-  }, [searchTerm]);
+  }, [term, searchTerm]);
 
 
 
@@ -70,27 +77,14 @@ const SearchBar = () => {
 
   return (
     <div>
-      <div>
-        <div className="column ui search right floated" style={{ marginRight:"160px" }}>
-          <div >
-            <div className="ui icon input">
-              <input
-                className="prompt"
-                type="text"
-                placeholder="Search by Ingredient"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <i className="search icon"></i>
-            </div>
-          </div>
-        </div>
-      </div>
+
       <div className="ui list" style={{marginTop:"30px"}}>
+      <h3>Cocktails with <i>{debouncedSearchTerm}</i></h3>
+
         {renderResults }
       </div>
     </div>
   );
 }
 
-export default SearchBar;
+export default SearchByIngredient;

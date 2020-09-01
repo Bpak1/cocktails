@@ -3,6 +3,8 @@ import { Router, Route, Link } from 'react-router-dom';
 import OverView from './overView';
 import Detail from './Detail';
 import SearchBar from './searchBar';
+import SearchByIngredient from './searchByIngredient';
+
 import history from '../history';
 
 class App extends Component{
@@ -31,6 +33,8 @@ class App extends Component{
             <Route exact path="/" component={OverView} />
             <Route exact path="/cocktail/:id" component={Detail} />
             <Route exact path="/search" component={SearchBar} />
+            <Route exact path="/SearchByIngredient/:term" component={SearchByIngredient} />
+
         </div>
         <div className="ui inverted vertical footer segment">
           <div className="ui container">
